@@ -1,140 +1,92 @@
-import { useState, useEffect } from "react";
-import {
-  Navbar,
-  MobileNav,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-tailwind/react";
-import { Link, useLocation } from "react-router-dom";
-
-//add staging link to env
+import React, { useState, use } from "react";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import { StyledBox, StyledListItemText } from "@ThemedMUI";
+import MenuIcon from "@mui/icons-material/Menu";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import { useTheme } from "styled-components";
+import { useGlobalContext } from "@components/Context/Context";
 
 export default function Nav() {
-  const [openNav, setOpenNav] = useState(false);
+  const {
+    font: { color },
+  } = useTheme();
+  const {
+    state: { isSideNavOpen },
+    dispatchers: { toggleMenu },
+  } = useGlobalContext();
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      console.log({ open });
+      toggleMenu(open);
+    };
+  const moceedProject = [
+    {
+      name: "Project 1",
+      id: 1,
+      description: "This is project 1",
+    },
+  ];
 
-  useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
-  }, []);
-
-  const currentPath = useLocation().pathname;
-  const checkIfIscurrentPath = (path: string) => {
-    return currentPath === path;
-  };
-  const currentPathButtonStyle =
-    "bg-sylos-blue rounded-md text-center cursor-pointer ";
-
-  const navList = (
-    <ul className="mb-4 mt-2 flex gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className={`p-1 font-normal w-24 justify-center flex text-white  ${
-          checkIfIscurrentPath("/") && currentPathButtonStyle
-        }`}
-      >
-        <Link to="/" className="flex items-center">
-          Home
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className={`p-1 font-normal w-24 justify-center flex text-white ${
-          checkIfIscurrentPath("/sites") && currentPathButtonStyle
-        }`}
-      >
-        <Link to="/sites" className="flex items-center">
-          Sites
-        </Link>
-      </Typography>
-    </ul>
+  const list = () => (
+    <StyledBox
+      sx={{ width: 250 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {["Projects"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon style={{ color: color }} />
+              </ListItemIcon>
+              <StyledListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {moceedProject.map((item, index) => (
+          <ListItem key={item.id} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon style={{ color: color }} />
+              </ListItemIcon>
+              <StyledListItemText primary={item.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </StyledBox>
   );
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4 mg-top-1 bg-dark-gray mt-2">
-      <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="small"
-          className="mr-4 cursor-pointer py-1.5 font-normal text-white"
-        >
-          <span>Sylos Build Management</span>
-        </Typography>
-        <div className="hidden lg:block">{navList}</div>
-        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-          <a
-            href="https://staging.plumsoftware.pl:1081/"
-            target="_blank"
-            className="flex items-center"
-          >
-            Stagging
-          </a>
-        </Button>
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="h-6 w-6"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-              color="#fff"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              color="#fff"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </IconButton>
-      </div>
-      <MobileNav open={openNav}>
-        <div className="container mx-auto">
-          {navList}
-          <Button
-            variant="gradient"
-            size="sm"
-            className="hidden lg:inline-block"
-          >
-            <a
-              href="https://staging.plumsoftware.pl:1081/"
-              target="_blank"
-              className="flex items-center"
-            >
-              Stagging
-            </a>
-          </Button>
-        </div>
-      </MobileNav>
-    </Navbar>
+    <>
+      <Button onClick={toggleDrawer(true)}>
+        <MenuIcon />
+      </Button>
+      <Drawer
+        anchor={"left"}
+        open={isSideNavOpen}
+        onClose={toggleDrawer(false)}
+      >
+        {list()}
+      </Drawer>
+    </>
   );
 }

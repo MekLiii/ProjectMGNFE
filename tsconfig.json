@@ -17,11 +17,11 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*",
-        "index.css"
-      ]
-    },
+      "@/*": ["src/*", "index.css"],
+      "@ThemedMUI": ["src/components/ThemedMUI/ThemedMUI.styled.ts"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+    }
   },
   "include": ["src", "electron", "index.css"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import ActionsPage from "./pages/actions/ActionsPage";
+import { memo } from "react";
+
+import ProjectPage from "./pages/ProjectPage/ProjectPage";
 
 function App() {
-  const navigate = useNavigate();
-  return <ActionsPage />;
+  return <ProjectPage />;
 }
 
-export default App;
+export default memo(App);

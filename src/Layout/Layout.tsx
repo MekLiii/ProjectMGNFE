@@ -1,11 +1,20 @@
 import Nav from "./components/Nav";
+import { Body, OutletChildren } from "./Layout.styled";
+import Theme from "./theme";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { Outlet } from "react-router-dom";
 
 export const Layout = () => {
   return (
-    <div className="bg-dark-gray flex flex-1 items-center justify-start flex-col">
-      <Nav />
-      <Outlet />
-    </div>
+    <Theme>
+      <Body>
+        <ErrorBoundary>
+          <Nav />
+          <OutletChildren>
+            <Outlet />
+          </OutletChildren>
+        </ErrorBoundary>
+      </Body>
+    </Theme>
   );
 };
