@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button, TextField, Typography, Link } from "@mui/material";
-import { LoadingButton } from '@mui/lab';
+import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler } from "react-hook-form";
 import { Login } from "./Apis";
@@ -10,7 +10,6 @@ import { login as LoginRedux } from "@/redux/Slicers/Auth";
 import jwtDecode from "jwt-decode";
 import { IDataSubmit, IDecodeToken } from "./types";
 import { useNavigate } from "react-router-dom";
-
 
 const LoginPage = () => {
   const {
@@ -48,7 +47,9 @@ const LoginPage = () => {
         email: decodeToken.email,
         Guid: decodeToken.Guid,
       };
-      navigate("/project");
+      navigate("/project",{
+        replace:true
+      });
       dispatch(LoginRedux(payLoad));
     }
   }, [data]);
@@ -105,7 +106,13 @@ const LoginPage = () => {
         )}
       />
 
-      <LoadingButton type="submit" variant="contained" color="primary" fullWidth loading={isLoading}>
+      <LoadingButton
+        type="submit"
+        variant="contained"
+        color="primary"
+        fullWidth
+        loading={isLoading}
+      >
         Login
       </LoadingButton>
 

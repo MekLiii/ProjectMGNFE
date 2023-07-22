@@ -15,8 +15,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<ChooseMode />} />
-          <Route path="/login" element={<LoginPage />} />
+          {/* <Route path="/" element={<ChooseMode />} /> */}
+          <Route path="/" element={<LoginPage />} />
           <Route
             path="/project"
             element={
