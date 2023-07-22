@@ -44,6 +44,6 @@ interface ITheme {
   children: React.ReactNode;
 }
 const Theme = ({ children }: ITheme) => (
-  <ThemeProvider theme={theme["dark"]}>{children}</ThemeProvider>
+  <ThemeProvider theme={theme["light"]}>{children}</ThemeProvider>
 );
 export default Theme;

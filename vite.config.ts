@@ -1,6 +1,6 @@
 import { rmSync } from "node:fs";
 import path from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
@@ -13,8 +13,11 @@ export default defineConfig(({ command }) => {
   const isServe = command === "serve";
   const isBuild = command === "build";
   const sourcemap = isServe || !!process.env.VSCODE_DEBUG;
-
+  const env = loadEnv(command, process.cwd());
   return {
+    define: {
+      "process.env.APIENDPOINT": JSON.stringify(env.APIENDPOINT),
+    },
     resolve: {
       alias: {
         "@": path.join(__dirname, "src"),
@@ -24,7 +27,7 @@ export default defineConfig(({ command }) => {
           "src/components/ThemedMUI/ThemedMUI.styled.tsx"
         ),
         "@components": path.join(__dirname, "src/components"),
-        "pages": path.join(__dirname, "src/pages"),
+        pages: path.join(__dirname, "src/pages"),
       },
     },
     plugins: [
@@ -83,9 +86,11 @@ export default defineConfig(({ command }) => {
       process.env.VSCODE_DEBUG &&
       (() => {
         const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL);
+        console.log(url);
         return {
           host: url.hostname,
-          port: +url.port,
+          // host: "https://localhost",
+          port: 3000,
         };
       })(),
     clearScreen: false,

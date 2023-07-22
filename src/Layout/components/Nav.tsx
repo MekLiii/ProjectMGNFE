@@ -10,16 +10,12 @@ import { StyledBox, StyledListItemText } from "@ThemedMUI";
 import MenuIcon from "@mui/icons-material/Menu";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { useTheme } from "styled-components";
-import { useGlobalContext } from "@components/Context/Context";
 
 export default function Nav() {
   const {
     font: { color },
   } = useTheme();
-  const {
-    state: { isSideNavOpen },
-    dispatchers: { toggleMenu },
-  } = useGlobalContext();
+
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -82,7 +78,7 @@ export default function Nav() {
       </Button>
       <Drawer
         anchor={"left"}
-        open={isSideNavOpen}
+        open={false}
         onClose={toggleDrawer(false)}
       >
         {list()}
