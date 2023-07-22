@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button, TextField, Typography, Link } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler } from "react-hook-form";
 import { Login } from "./Apis";
@@ -31,6 +32,7 @@ const LoginPage = () => {
     isSuccess,
   } = useQuery("login", () => Login(watch()), {
     enabled: false,
+    retry: false,
   });
 
   const state = useSelector((state: any) => state);
@@ -103,9 +105,9 @@ const LoginPage = () => {
         )}
       />
 
-      <Button type="submit" variant="contained" color="primary" fullWidth>
+      <LoadingButton type="submit" variant="contained" color="primary" fullWidth loading={isLoading}>
         Login
-      </Button>
+      </LoadingButton>
 
       <Typography variant="body2" align="center" style={{ marginTop: "1rem" }}>
         Don't have an account yet? <Link href="#">Register</Link>
