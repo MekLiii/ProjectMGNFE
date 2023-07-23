@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
-  Button,
   TextField,
   Typography,
   Box,
@@ -19,7 +18,7 @@ import { useQuery } from "react-query";
 import { login as LoginRedux } from "@/redux/Slicers/Auth";
 import jwtDecode from "jwt-decode";
 import { IDataSubmit, IDecodeToken } from "./types";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
@@ -80,7 +79,7 @@ const LoginPage = () => {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" className="whiteText">
             Sign in
           </Typography>
           <Box
@@ -136,6 +135,7 @@ const LoginPage = () => {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              className="whiteText muiCheckbox"
             />
             <LoadingButton
               type="submit"
@@ -143,19 +143,16 @@ const LoginPage = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               loading={isLoading}
+              className="muiButton"
             >
               Sign In
             </LoadingButton>
             <Grid container>
               <Grid item xs>
-                <Link  to="#">
-                  Forgot password?
-                </Link>
+                <Link to="#">Forgot password?</Link>
               </Grid>
               <Grid item>
-                <Link   to={"/signUp"}>
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Link to={"/signUp"}>{"Don't have an account? Sign Up"}</Link>
               </Grid>
             </Grid>
           </Box>
@@ -173,12 +170,10 @@ function Copyright(props: any) {
       color="text.secondary"
       align="center"
       {...props}
+      className="whiteText"
     >
       {"Copyright © "}
-      <Link to="#">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link to="#">Your Website</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
