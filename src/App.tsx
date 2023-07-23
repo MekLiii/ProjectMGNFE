@@ -21,6 +21,7 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route
             path="/project"
+            index
             element={
               <ProtectedRoute>
                 <ProjectPage />

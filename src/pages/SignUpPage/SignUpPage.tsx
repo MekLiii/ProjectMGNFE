@@ -22,7 +22,7 @@ function Copyright(props: any) {
       {...props}
     >
       {"Copyright © "}
-      <Link to="#">Your Website</Link> {new Date().getFullYear()}
+      <Link to="#" replace>Your Website</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -160,7 +160,7 @@ export default function SignUpPage() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="/">Already have an account? Sign in</Link>
+              <Link to="/" replace>Already have an account? Sign in</Link>
             </Grid>
           </Grid>
         </Box>

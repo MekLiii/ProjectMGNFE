@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useLayoutEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
   TextField,
@@ -21,6 +21,7 @@ import { IDataSubmit, IDecodeToken } from "./types";
 import { useNavigate, Link } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { LoginFromStorage } from "./utils/LoginFromStorage";
 
 const LoginPage = () => {
   const {
@@ -44,9 +45,17 @@ const LoginPage = () => {
     enabled: false,
     retry: false,
   });
-
   const state = useSelector((state: any) => state);
-  console.log(state);
+  useLayoutEffect(() => {
+    const payload = LoginFromStorage();
+    if (payload) {
+      dispatch(LoginRedux(payload));
+      navigate("/project", {
+        replace: true,
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (data && isSuccess) {
       console.log(data);
@@ -149,10 +158,10 @@ const LoginPage = () => {
             </LoadingButton>
             <Grid container>
               <Grid item xs>
-                <Link to="#">Forgot password?</Link>
+                <Link to="#" replace>Forgot password?</Link>
               </Grid>
               <Grid item>
-                <Link to={"/signUp"}>{"Don't have an account? Sign Up"}</Link>
+                <Link to={"/signUp"} replace>{"Don't have an account? Sign Up"}</Link>
               </Grid>
             </Grid>
           </Box>
@@ -173,7 +182,7 @@ function Copyright(props: any) {
       className="whiteText"
     >
       {"Copyright © "}
-      <Link to="#">Your Website</Link> {new Date().getFullYear()}
+      <Link to="#" replace>Your Website</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );

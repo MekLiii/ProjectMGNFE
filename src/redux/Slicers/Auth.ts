@@ -35,6 +35,7 @@ export const authSlice = createSlice({
         };
       }
     ) => {
+      localStorage.setItem("token", action.payload.token);
       state.token = action.payload.token;
       state.isLoggedIn = state.token ? true : false;
       state.user = {
@@ -44,6 +45,7 @@ export const authSlice = createSlice({
       };
     },
     logout: (state) => {
+      localStorage.removeItem("token");
       state.token = null;
       state.isLoggedIn = false;
     },
