@@ -6,7 +6,6 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const state = useSelector((state: any) => state.auth);
-  console.log(state.token);
   if (state.token === null) {
     return <Navigate to="/" />;
   }

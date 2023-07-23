@@ -10,11 +10,15 @@ import { StyledBox, StyledListItemText } from "@ThemedMUI";
 import MenuIcon from "@mui/icons-material/Menu";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { useTheme } from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleNavbar } from "@/redux/Slicers/Navbar";
 
 export default function Nav() {
   const {
     font: { color },
   } = useTheme();
+  const { isNavbarOpen } = useSelector((state: any) => state.navbar);
+  const dispatch = useDispatch();
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -25,8 +29,7 @@ export default function Nav() {
       ) {
         return;
       }
-      console.log({ open });
-      toggleMenu(open);
+      dispatch(toggleNavbar());
     };
   const moceedProject = [
     {
@@ -76,11 +79,7 @@ export default function Nav() {
       <Button onClick={toggleDrawer(true)}>
         <MenuIcon />
       </Button>
-      <Drawer
-        anchor={"left"}
-        open={false}
-        onClose={toggleDrawer(false)}
-      >
+      <Drawer anchor={"left"} open={isNavbarOpen} onClose={toggleDrawer(false)}>
         {list()}
       </Drawer>
     </>

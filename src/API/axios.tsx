@@ -14,8 +14,8 @@ const instance = axios.create({
 });
 
 const AxiosProvider = ({ children }: AxiosProviderProps) => {
-    const state = useSelector((state: any) => state);
-    console.log(state)
+  const token = useSelector((state: any) => state.auth.token);
+  console.log(token);
   instance.interceptors.request.use(
     (config) => {
       const token = localStorage.getItem("token");
@@ -37,7 +37,10 @@ const Post = async (url: string, data: any) => {
 };
 const Get = async (url: string) => {
   const response = await instance.get(url);
-  return response.data;
+  return {
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 export { Post, Get, AxiosProvider };
 export default instance;

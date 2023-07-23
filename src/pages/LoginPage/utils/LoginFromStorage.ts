@@ -3,7 +3,6 @@ import { IDecodeToken } from "../types";
 
 export const LoginFromStorage = () => {
   const token = localStorage.getItem("token");
-  console.log(typeof token);
   const decodeToken = token !== "null"
     ? (jwtDecode(token as string) as IDecodeToken)
     : null;

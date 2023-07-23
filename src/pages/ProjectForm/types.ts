@@ -1,5 +1,5 @@
 interface IProjectFormProps {
-  formState: "ADD" | "EDIT";
+  state: "ADD" | "EDIT";
 }
 interface IProjectFormValues {
   projectPath?: string;

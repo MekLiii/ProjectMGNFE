@@ -45,7 +45,6 @@ const LoginPage = () => {
     enabled: false,
     retry: false,
   });
-  const state = useSelector((state: any) => state);
   useLayoutEffect(() => {
     const payload = LoginFromStorage();
     if (payload) {
@@ -58,8 +57,6 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (data && isSuccess) {
-      console.log(data);
-      console.log(jwtDecode(data.token));
       const decodeToken = jwtDecode(data.token) as IDecodeToken;
       const payLoad = {
         token: data.token,

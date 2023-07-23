@@ -86,10 +86,8 @@ export default defineConfig(({ command }) => {
       process.env.VSCODE_DEBUG &&
       (() => {
         const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL);
-        console.log(url);
         return {
           host: url.hostname,
-          // host: "https://localhost",
           port: 3000,
         };
       })(),

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Input, Button } from "@material-ui/core";
 import { StyledForm, Title} from "./ProjectForm.styled";
 
-function ProjectForm({ formState }: IProjectFormProps) {
+function ProjectForm({ state }: IProjectFormProps) {
   const {
     register,
     handleSubmit,
@@ -12,14 +12,14 @@ function ProjectForm({ formState }: IProjectFormProps) {
   const onSubmit = (data: any) => console.log(data);
   return (
     <>
-    <Title>Test</Title>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <h3>Test</h3>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("projectPath", { required: true })}
           placeholder="Project Path"
           style={{ color: "white" }}
         />
-      </StyledForm>
+      </form>
     </>
   );
 }
