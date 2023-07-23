@@ -7,6 +7,7 @@ import { Layout } from "./Layout/Layout";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import SignUp from "./pages/SignUpPage/SignUpPage";
 
 function App() {
   const state = useSelector((state: any) => state);
@@ -17,6 +18,7 @@ function App() {
         <Route element={<Layout />}>
           {/* <Route path="/" element={<ChooseMode />} /> */}
           <Route path="/" element={<LoginPage />} />
+          <Route path="/signUp" element={<SignUp />} />
           <Route
             path="/project"
             element={
