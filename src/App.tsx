@@ -22,7 +22,7 @@ function App() {
           <Route
             path="/project"
             element={
-              <ProtectedRoute user={state.auth}>
+              <ProtectedRoute>
                 <ProjectPage />
               </ProtectedRoute>
             }

@@ -6,3 +6,11 @@
 #root {
   min-height: 100%;
 }
+.css-i4bv87-MuiSvgIcon-root {
+  /* display: none !important; */
+  color: #9155fd;
+}
+
+a {
+  color: #9155fd;
+}

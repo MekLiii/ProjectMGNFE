@@ -6,10 +6,9 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import { AxiosProvider } from "./API/axios";
 import { QueryClient, QueryClientProvider } from "react-query";
-
+import { MuiThemeProvider } from "./Layout/theme";
 
 const queryClient = new QueryClient();
-
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -17,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <AxiosProvider>
         <QueryClientProvider client={queryClient}>
           {/* <RouterProvider router={Router()} /> */}
-          <App />
+          <MuiThemeProvider>
+            <App />
+          </MuiThemeProvider>
         </QueryClientProvider>
       </AxiosProvider>
     </Provider>

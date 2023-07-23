@@ -1,4 +1,8 @@
 import { ThemeProvider } from "styled-components";
+import { createTheme } from "@mui/material/styles";
+import {
+  ThemeProvider as MuiTheme,
+} from "@mui/material";
 
 interface IColors {
   dark: {
@@ -17,11 +21,12 @@ interface IColors {
   };
 }
 
-const theme:IColors = {
+const theme: IColors = {
   dark: {
     colors: {
-      background: "#121214",
+      background: "#28243D",
       lightGray: "#202024",
+      midPurple: "#9155FD",
     },
     font: {
       family: "Roboto, sans-serif",
@@ -44,6 +49,20 @@ interface ITheme {
   children: React.ReactNode;
 }
 const Theme = ({ children }: ITheme) => (
-  <ThemeProvider theme={theme["light"]}>{children}</ThemeProvider>
+  <ThemeProvider theme={theme["dark"]}>{children}</ThemeProvider>
 );
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#9155FD",
+    },
+  },
+});
+
+const MuiThemeProvider = ({ children }: ITheme) => {
+  return <MuiTheme theme={darkTheme}>{children}</MuiTheme>;
+};
+export { MuiThemeProvider };
 export default Theme;
