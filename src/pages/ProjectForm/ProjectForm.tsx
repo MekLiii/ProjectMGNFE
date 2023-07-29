@@ -1,14 +1,14 @@
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import React from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import {
   TextField,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  Button,
-} from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+  Button
+} from '@mui/material'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import {
   Typography,
   Box,
@@ -16,14 +16,17 @@ import {
   Avatar,
   FormControlLabel,
   Checkbox,
-  Grid,
-} from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Link } from "react-router-dom";
-import { LoadingButton } from "@mui/lab";
+  Grid
+} from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
+import { useNavigate } from 'react-router-dom'
+import { LoadingButton } from '@mui/lab'
+import { createProject } from './Apis'
+import { useSelector } from 'react-redux'
+import { useQuery } from 'react-query'
 
 interface IProjectForm {
-  state: "ADD" | "EDIT";
+  state: 'ADD' | 'EDIT'
 }
 
 const ProjectForm = ({ state }: IProjectForm) => {
@@ -32,13 +35,26 @@ const ProjectForm = ({ state }: IProjectForm) => {
     control,
     setValue,
     register,
-    formState: { errors },
-  } = useForm();
+    watch,
+    formState: { errors }
+  } = useForm()
+  const { nameid } = useSelector((state: any) => state.auth.user)
+  const navigate = useNavigate()
+  const onSubmit = () => refetch()
 
-  const onSubmit = (data: any) => {
-    // Handle form submission here
-    console.log(data);
-  };
+  const { isLoading, refetch } = useQuery(
+    'createProject',
+    () => createProject(watch(), nameid),
+    {
+      enabled: false,
+      retry: false,
+      onSuccess: () => {
+        navigate('/project', {
+          replace: true
+        })
+      }
+    }
+  )
 
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
@@ -57,8 +73,6 @@ const ProjectForm = ({ state }: IProjectForm) => {
     //       />
     //     )}
     //   />
-
- 
 
     //   <input
     //     {...register("projectImage", { required: "Project Image is required" })}
@@ -84,49 +98,49 @@ const ProjectForm = ({ state }: IProjectForm) => {
     //     Submit
     //   </Button>
     // </form>
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
-        <Typography component="h1" variant="h5" className="whiteText">
-          {state === "ADD" ? "Add Project" : "Edit Project"}
+        <Typography component='h1' variant='h5' className='whiteText'>
+          {state === 'ADD' ? 'Add Project' : 'Edit Project'}
         </Typography>
         <Box
-          component="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(onSubmit)();
+          component='form'
+          onSubmit={e => {
+            e.preventDefault()
+            handleSubmit(onSubmit)()
           }}
           noValidate
           sx={{ mt: 1 }}
         >
           <Controller
-            name="projectName"
+            name='projectName'
             control={control}
             rules={{
-              required: "Project name is required",
+              required: 'Project name is required',
               pattern: {
                 //no special characters and no spaces and no numbers
                 value: /^[a-zA-Z0-9]+$/i,
-                message: "Ivalid project name",
-              },
+                message: 'Ivalid project name'
+              }
             }}
             render={({ field, fieldState: { error } }) => (
               <TextField
                 {...field}
-                label="Project name"
-                variant="outlined"
+                label='Project name'
+                variant='outlined'
                 fullWidth
                 autoFocus
                 error={!!errors.projectName}
                 // helperText={error ? error.projectName : null}
-                margin="normal" // Add a margin to create a gap
+                margin='normal' // Add a margin to create a gap
               />
             )}
           />
@@ -154,21 +168,20 @@ const ProjectForm = ({ state }: IProjectForm) => {
             className="whiteText muiCheckbox"
           /> */}
           <LoadingButton
-            type="submit"
+            type='submit'
             fullWidth
-            variant="contained"
+            variant='contained'
             sx={{ mt: 3, mb: 2 }}
             // loading={isLoading}
-            loading={false}
-            className="muiButton"
+            loading={isLoading}
+            className='muiButton'
           >
             add
           </LoadingButton>
-         
         </Box>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default ProjectForm;
+export default ProjectForm

@@ -15,7 +15,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <Provider store={store}>
       <AxiosProvider>
         <QueryClientProvider client={queryClient}>
-          {/* <RouterProvider router={Router()} /> */}
           <MuiThemeProvider>
             <App />
           </MuiThemeProvider>

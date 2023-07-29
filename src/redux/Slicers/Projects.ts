@@ -11,8 +11,9 @@ export const projectSlice = createSlice({
   name: "projects",
   initialState,
   reducers: {
-    addProject: (state, action: { payload: IProject }) => {
-      state = [action.payload];
+    addProject: (state, action: { payload: IProject[] }) => {
+      state.push(...action.payload);
+      console.log({state});
     },
     removeProject: (state, action: { payload: number }) => {
       return state.filter((project) => project.id !== action.payload);
