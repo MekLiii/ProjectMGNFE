@@ -52,7 +52,10 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
       contextIsolation: false,
+      
     },
+    minWidth: 1200,
+    minHeight: 900,
   })
 
   if (url) { // electron-vite-vue#298
