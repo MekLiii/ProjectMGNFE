@@ -49,7 +49,7 @@ const ProjectForm = ({ state }: IProjectForm) => {
       enabled: false,
       retry: false,
       onSuccess: () => {
-        navigate('/project', {
+        navigate('/main', {
           replace: true
         })
       }
@@ -57,47 +57,6 @@ const ProjectForm = ({ state }: IProjectForm) => {
   )
 
   return (
-    // <form onSubmit={handleSubmit(onSubmit)}>
-    //   <Controller
-    //     name="projectName"
-    //     control={control}
-    //     defaultValue=""
-    //     rules={{ required: "Project Name is required" }}
-    //     render={({ field, fieldState: { error } }) => (
-    //       <TextField
-    //         {...field}
-    //         label="Project Name"
-    //         fullWidth
-    //         error={Boolean(errors.projectName)}
-    //         helperText={error ? error.message : null}
-    //       />
-    //     )}
-    //   />
-
-    //   <input
-    //     {...register("projectImage", { required: "Project Image is required" })}
-    //     type="file"
-    //     style={{ display: "none" }}
-    //     id="projectImageInput"
-    //     onChange={(e) => null}
-    //   />
-    //   <label htmlFor="projectImageInput">
-    //     <Button
-    //       variant="contained"
-    //       component="span"
-    //       startIcon={<CloudUploadIcon />}
-    //     >
-    //       Upload Project Image
-    //     </Button>
-    //   </label>
-    //   {/* {errors.projectImage && (
-    //     <p style={{ color: "red" }}>{errors.projectImage.message}</p>
-    //   )} */}
-
-    //   <Button type="submit" variant="contained" color="primary">
-    //     Submit
-    //   </Button>
-    // </form>
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <Box
@@ -126,7 +85,6 @@ const ProjectForm = ({ state }: IProjectForm) => {
             rules={{
               required: 'Project name is required',
               pattern: {
-                //no special characters and no spaces and no numbers
                 value: /^[a-zA-Z0-9]+$/i,
                 message: 'Ivalid project name'
               }
@@ -139,34 +97,10 @@ const ProjectForm = ({ state }: IProjectForm) => {
                 fullWidth
                 autoFocus
                 error={!!errors.projectName}
-                // helperText={error ? error.projectName : null}
-                margin='normal' // Add a margin to create a gap
+                margin='normal'
               />
             )}
           />
-          {/* <Controller
-            name="configurationId"
-            control={control}
-            // rules={{
-            //   required: "Co is required",
-            // }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                {...field}
-                label="Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                error={error ? true : false}
-                margin="normal"
-              />
-            )}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-            className="whiteText muiCheckbox"
-          /> */}
           <LoadingButton
             type='submit'
             fullWidth

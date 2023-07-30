@@ -54,7 +54,7 @@ const LoginPage = () => {
     if (payload) {
       console.log({ payload })
       dispatch(LoginRedux(payload))
-      navigate('/project', {
+      navigate('/main', {
         replace: true
       })
     }
@@ -70,7 +70,7 @@ const LoginPage = () => {
         email: decodeToken.email,
         Guid: decodeToken.Guid
       }
-      navigate('/project', {
+      navigate('/main', {
         replace: true
       })
       dispatch(LoginRedux(payLoad))

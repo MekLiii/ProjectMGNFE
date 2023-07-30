@@ -12,7 +12,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox'
 import { useTheme } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleNavbar } from '@/redux/Slicers/Navbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Nav () {
   const {
@@ -21,6 +21,7 @@ export default function Nav () {
   const { isNavbarOpen } = useSelector((state: any) => state.navbar)
   const dispatch = useDispatch()
   const projects = useSelector((state: any) => state.projects)
+  const navigate = useNavigate()
   console.log(projects)
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -33,13 +34,6 @@ export default function Nav () {
       }
       dispatch(toggleNavbar())
     }
-  const moceedProject = [
-    {
-      name: 'Project 1',
-      id: 1,
-      description: 'This is project 1'
-    }
-  ]
 
   const list = () => (
     <StyledBox
@@ -49,21 +43,31 @@ export default function Nav () {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Projects'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon style={{ color: color }} />
-              </ListItemIcon>
-              <StyledListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem
+          key={'Main page'}
+          disablePadding
+          onClick={() => {
+            navigate(`/main`)
+          }}
+        >
+          <ListItemButton>
+            {/* <ListItemIcon> */}
+            {/* <InboxIcon style={{ color: color }} /> */}
+            {/* </ListItemIcon> */}
+            <StyledListItemText primary={'Main page'} />
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
       <List>
         {projects.map((item, index) => (
-          <ListItem key={item.id} disablePadding>
+          <ListItem
+            key={item.id}
+            disablePadding
+            onClick={() => {
+              navigate(`/project/${item.id}`)
+            }}
+          >
             <ListItemButton>
               <ListItemIcon>
                 <InboxIcon style={{ color: color }} />
@@ -74,10 +78,12 @@ export default function Nav () {
         ))}
       </List>
       <ListItem>
-        <Link to={{
-          pathname: '/addProject',
-          replace: true
-        }}>
+        <Link
+          to={{
+            pathname: '/addProject',
+            replace: true
+          }}
+        >
           <Button variant='contained' color='primary'>
             Create new project
           </Button>
@@ -89,7 +95,13 @@ export default function Nav () {
   return (
     <>
       <Button onClick={toggleDrawer(true)}>
-        <MenuIcon />
+        <MenuIcon
+          sx={{
+            // width: '2rem',
+            // backgroundColor:"Red",
+            fontSize: '2rem'
+          }}
+        />
       </Button>
       <Drawer anchor={'left'} open={isNavbarOpen} onClose={toggleDrawer(false)}>
         {list()}
