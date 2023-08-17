@@ -1,4 +1,4 @@
-import { Get } from "@/API/axios";
+import { Get } from "@/API/methods";
 
 const getProjectList = (id: number) => {
   return Get(`/Projects/${id}`);

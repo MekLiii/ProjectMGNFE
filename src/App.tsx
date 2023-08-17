@@ -25,8 +25,11 @@ function App () {
               </ProtectedRoute>
             }
           />
-          <Route path='/project/:id' element={<Project />} />
-          <Route path='/addProject/' element={<ProjectForm state='ADD' />} />
+            <Route path='/project/:id' element={<ProtectedRoute>
+                <Project />
+            </ProtectedRoute>} />
+            <Route path='/addProject/' element={<ProtectedRoute><ProjectForm state='ADD' /></ProtectedRoute>} />
+            <Route path="/project/:id/settings" element={<ProtectedRoute>test</ProtectedRoute>} />
           <Route path='*' element={<h1>404</h1>} />
         </Route>
       </Routes>

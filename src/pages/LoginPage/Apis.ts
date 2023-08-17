@@ -1,4 +1,4 @@
-import { Post } from "@/API/axios";
+import { Post } from "@/API/methods";
 
 interface ILoginData {
   email: string;
@@ -6,7 +6,7 @@ interface ILoginData {
 }
 
 const Login = async (data: ILoginData) => {
-  const response = await Post("/Users/login", data);
-  return response;
+  return await Post("/Users/login", data);
+
 };
 export { Login };

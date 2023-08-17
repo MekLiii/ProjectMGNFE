@@ -31,16 +31,6 @@ const AxiosProvider = ({ children }: AxiosProviderProps) => {
   return <>{children}</>;
 };
 
-const Post = async (url: string, data: any) => {
-  const response = await instance.post(url, data);
-  return response.data;
-};
-const Get = async (url: string) => {
-  const response = await instance.get(url);
-  return {
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-export { Post, Get, AxiosProvider };
+
+export { AxiosProvider };
 export default instance;

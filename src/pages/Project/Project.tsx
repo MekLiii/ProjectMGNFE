@@ -1,12 +1,22 @@
-import { useParams } from 'react-router-dom'
+import {useEffect} from "react";
+import {Link, useParams,useLocation} from 'react-router-dom'
 import { Typography, Container } from '@mui/material'
 import Cssbaseline from '@mui/material/CssBaseline'
 import { Box } from '@material-ui/core'
 import { Settings } from '@mui/icons-material'
+import {useQuery} from "react-query";
+import {getProject} from "./Api";
 
 const Project = () => {
-  const params = useParams()
-  console.log(params)
+  const {id} = useParams<{id:string}>()
+    const {pathname} = useLocation();
+  console.log(pathname)
+    const {data,isFetching,refetch} = useQuery("getProjectById",() => getProject(id),{
+        enabled:false
+    })
+    useEffect(() => {
+        refetch();
+    }, []);
   return (
     <Container
       sx={{
@@ -28,17 +38,19 @@ const Project = () => {
             alignItems: 'center'
           }}
         >
-          Sign in
-          <Settings
-            sx={theme => ({
-              fontSize: '2rem',
-              color: theme.palette.primary.main,
-              cursor: 'pointer'
-            })}
-          />
+            {data?.data?.name}
+         <Link to={`${pathname}/settings`} >
+             <Settings
+                 sx={theme => ({
+                     fontSize: '2rem',
+                     color: theme.palette.primary.main,
+                     cursor: 'pointer'
+                 })}
+             />
+         </Link>
         </Typography>
       </Box>
-      <h1>{params.id}</h1>
+      <h1>{data?.data?.configurationId || "No configuration"}</h1>
     </Container>
   )
 }
